@@ -10,8 +10,8 @@ const Login = () => {
     <section className="login">
         <div className="container p-4">
             <div className="p-2 w-full max-w-md mx-auto bg-[#323232]">
-                <div className="mx-auto mb-4">
-                    <img src={login} alt="" />
+                <div className="mx-auto mb-4 flex justify-center">
+                    <img className="h-[300px]" src={login} alt="" />
                 </div>
                 <form action="">
                     <div className="grid">
@@ -26,12 +26,13 @@ const Login = () => {
                             </span>
                         </div>
                         </div>
-                        <Link to='/forgot-password' className="hover:underline w-fit block ml-auto hover:text-cyan-600">Forgot password?</Link>
+                        <Link to='/forgot-password' className="hover:underline w-fit block ml-auto hover:text-cyan-500">Forgot password?</Link>
                     </div>
                     <div className="mt-4 mb-2 flex justify-center">
                         <Link to='/login'><button className="bg-green-700 w-[180px] px-6 py-2 rounded-full hover:bg-green-800">Login</button></Link>
                     </div>
                 </form>
+                <p className="m-2">Don't have an account ? <Link to='/signup' className="text-cyan-500">Signup</Link></p>
             </div>
         </div>
     </section>
