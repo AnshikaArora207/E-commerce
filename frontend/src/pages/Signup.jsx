@@ -1,12 +1,15 @@
 import { useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa6"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import user from "../assets/signup.png"
 import ImageTo64 from "../utils/ImageTo64";
+import summaryApi from "../common";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const navigate = useNavigate();
     const [data,setData] = useState({
         name: "",
         email: "",
@@ -30,8 +33,22 @@ const Signup = () => {
         }));
     }
     console.log(data);
-    const handleSubmit = (e)=>{
+    const handleSubmit = async(e)=>{
         e.preventDefault();
+        if(data.password===data.confirmPassword){
+            const response = await fetch(summaryApi.signup.url,{
+                method : summaryApi.signup.method,
+                headers : {
+                    "content-type" : "application/json"
+                },
+                body : JSON.stringify(data)
+            })
+            const resolvedResponse = await response.json();
+            if(resolvedResponse.success) {toast.success(resolvedResponse.message); navigate("/login");}
+            if(resolvedResponse.error) toast.error(resolvedResponse.message);
+        }else{
+            console.log("Please check password and confirm password");
+        }
     }
   return (
     <section className="login">
@@ -71,7 +88,9 @@ const Signup = () => {
                         </div>
                     </div>
                     <div className="mt-4 mb-2 flex justify-center">
-                        <Link to='/login'><button className="bg-green-700 w-[180px] px-6 py-2 rounded-full hover:bg-green-800">Signup</button></Link>
+                        {/* <Link to='/login'> */}
+                        <button type="submit" className="bg-green-700 w-[180px] px-6 py-2 rounded-full hover:bg-green-800">Signup</button>
+                        {/* </Link> */}
                     </div>
                 </form>
                 <p className="m-2">Already have an account ? <Link to='/login' className="text-cyan-500">Login</Link></p>
