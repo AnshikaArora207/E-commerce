@@ -3,6 +3,10 @@ const summaryApi = {
     signup : {
         url : `${backendDomain}/api/signup`,
         method : "post"
+    },
+    signin : {
+        url : `${backendDomain}/api/login`,
+        method : "post"
     }
 }
 

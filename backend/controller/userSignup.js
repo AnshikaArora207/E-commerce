@@ -1,7 +1,7 @@
 import userModel from "../models/user.js";
 import bcrypt from "bcryptjs"
-
 async function userSignup(req,res){
+
     try{
         const {email, password, name} = req.body
         const user = await userModel.findOne({email});
