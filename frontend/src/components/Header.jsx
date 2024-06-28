@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
+import { useState } from "react";
 
 const Header = () => {
   const user = useSelector(state => state?.user?.user)
+  const [menuDisplay, setMenuDisplay] = useState(false);
   const dispatch = useDispatch();
   console.log("user" , user);
   const handleLogout = async()=>{
@@ -35,7 +37,16 @@ const Header = () => {
         </div>
         <div className="flex flex-row gap-8">
         <div className="flex flex-row gap-4 cursor-pointer items-center relative">
-          {user?.profilePic ? (<img className="w-10 h-10 rounded-full" src={user?.profilePic}/>) : (<FaRegCircleUser size={26}/>)}
+          <div className="relative flex justify-center">
+            <div onClick={()=>{setMenuDisplay(!menuDisplay)}}>{user?.profilePic ? (<img className="w-10 h-10 rounded-full" src={user?.profilePic}/>) : (<FaRegCircleUser size={26}/>)}</div>
+            {
+              menuDisplay && (<div className="absolute bottom-0 top-12 shadow-lg h-fit p-4 bg-[#262626] rounded">
+              <nav>
+                <Link to="/admin" className=" whitespace-nowrap hover:bg-slate-700 p-2">Admin Panel</Link>
+              </nav>
+            </div>)
+            }
+          </div>
           <div className="flex flex-col items-center">
             <span><MdOutlineShoppingCart size={26}/></span>
             <div className="absolute bg-red-600 w-4 h-4 rounded-full flex items-center justify-center text-center -right-2 -top-2">

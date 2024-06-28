@@ -12,6 +12,7 @@ import summaryApi from "./common";
 import Context from "./context";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "./store/userSlice";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/signup" element={<Signup/>}/>
+                <Route path="/admin" element={<AdminPanel/>}/>
             </Routes>
     <Footer/>
     </Context.Provider>
