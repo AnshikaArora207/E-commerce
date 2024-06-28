@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import login from "../assets/loginImg.png";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
+import Context from "../context";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { fetchUserDetail } = useContext(Context);
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     email: "",
@@ -25,6 +27,7 @@ const Login = () => {
     e.preventDefault();
     const response = await fetch(summaryApi.signin.url, {
       method: summaryApi.signin.method,
+      credentials: "include",
       headers: {
         "content-type": "application/json",
       },
@@ -33,7 +36,8 @@ const Login = () => {
     const resolvedResponse = await response.json();
     if (resolvedResponse.success) {
       toast.success(resolvedResponse.message);
-      navigate("/home");
+      navigate("/");
+      fetchUserDetail();
     }
     if (resolvedResponse.error) toast.error(resolvedResponse.message);
   };

@@ -7,11 +7,27 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Signup from "./pages/Signup";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
+import summaryApi from "./common";
+import Context from "./context";
 
 function App() {
-
+  const fetchUserDetail = async()=>{
+    const ResponseData = await fetch(summaryApi.current_user.url,{
+      method : summaryApi.current_user.method,
+      credentials : 'include'
+    })
+    const data = ResponseData.json();
+    console.log("api hitted",data);
+  }
+  useEffect(()=>{
+    fetchUserDetail();
+  },[])
   return (
     <>
+    <Context.Provider value={{
+      fetchUserDetail
+    }}>
     <ToastContainer/>
     <Header/>
             <Routes>
@@ -22,6 +38,7 @@ function App() {
                 <Route path="/signup" element={<Signup/>}/>
             </Routes>
     <Footer/>
+    </Context.Provider>
     </>
   )
 }
