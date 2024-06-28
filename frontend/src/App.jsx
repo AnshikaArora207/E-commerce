@@ -10,15 +10,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import summaryApi from "./common";
 import Context from "./context";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "./store/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const fetchUserDetail = async()=>{
     const ResponseData = await fetch(summaryApi.current_user.url,{
       method : summaryApi.current_user.method,
       credentials : 'include'
     })
-    const data = ResponseData.json();
-    console.log("api hitted",data);
+    const data = await ResponseData.json();
+    if(data.success) dispatch(setUserDetails(data.data))
+    // console.log("api hitted",data.data);
   }
   useEffect(()=>{
     fetchUserDetail();

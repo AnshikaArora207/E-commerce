@@ -3,8 +3,11 @@ import { GrSearch } from "react-icons/gr";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const user = useSelector(state => state?.user?.user)
+  console.log("user" , user);
   return (
     <header className="shadow-md">
       <div className="container mx-auto flex items-center py-2 px-4 justify-between">
@@ -19,7 +22,7 @@ const Header = () => {
         </div>
         <div className="flex flex-row gap-8">
         <div className="flex flex-row gap-4 cursor-pointer items-center relative">
-          <FaRegCircleUser size={24}/>
+          {user?.profilePic ? (<img className="w-11 h-11 rounded-full" src={user?.profilePic}/>) : (<FaRegCircleUser size={24}/>)}
           <div className="flex flex-col items-center">
             <span><MdOutlineShoppingCart size={24}/></span>
             <div className="absolute bg-red-600 w-4 h-4 rounded-full flex items-center justify-center text-center -right-2 -top-2">
