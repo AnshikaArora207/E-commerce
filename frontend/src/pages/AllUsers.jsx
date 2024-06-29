@@ -12,6 +12,13 @@ import ChangeRole from "../components/ChangeRole";
 const AllUsers = () => {
     const user = useSelector((state) => state?.user?.user);
     const [allUser, setAllUser] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [updateUserDetails, setUpdateUserDetails] = useState({
+        email : "",
+        name : "",
+        role : "",
+        _id : ""
+    });
     const fetchAllUsers = async()=>{
         const responseData = await fetch(summaryApi.allUsers.url,{
             method : summaryApi.allUsers.method,
@@ -71,13 +78,13 @@ const AllUsers = () => {
                                     <td>{el?.email}</td>
                                     <td>{el?.role}</td>
                                     <td>{moment(el?.createdAt).format('ll')}</td>
-                                    <td><button className="bg-green-200 hover:bg-green-400 p-2 rounded-full cursor-pointer"><MdModeEdit color="black"/></button></td>
+                                    <td><button onClick={()=>{setUpdateUserDetails(el);setOpen(true);}} className="bg-green-200 hover:bg-green-400 p-2 rounded-full cursor-pointer"><MdModeEdit color="black"/></button></td>
                                 </tr>)
                             })
                         }
                     </tbody>
                 </table>
-                <ChangeRole/>
+                {open && <ChangeRole onClose={()=>setOpen(false)} name = {updateUserDetails.name} email = {updateUserDetails.email} role = {updateUserDetails.role} userId = {updateUserDetails._id} callFunc={fetchAllUsers}/>}
             </div>
         </main>
       </div>
