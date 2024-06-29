@@ -15,6 +15,10 @@ const summaryApi = {
     logout : {
         url : `${backendDomain}/api/logout`,
         method : "delete"
+    },
+    allUsers : {
+        url : `${backendDomain}/api/admin/all-users`,
+        method : "get"
     }
 }
 
