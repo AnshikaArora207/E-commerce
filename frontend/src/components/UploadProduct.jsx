@@ -63,8 +63,8 @@ const UploadProduct = ({onClose}) => {
                 <input className="p-2 bg-slate-600 border rounded" type="text" id="brandName" placeholder="enter brand name" value={data.brandName} onChange={handleChange} />
                 <label htmlFor="category">Category :</label>
                 <select value={data.category} onChange={handleChange} className="p-2 bg-slate-600 border rounded" name="category" id="">
+                    <option value="">Select Category</option>
                     {
-                        <option value={""}>Select Category</option>
                         productCategory.map((el,index)=>{
                             return(
                                 <option value={el.label} key={el.id}>{el.label}</option>
