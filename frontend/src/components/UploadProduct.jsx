@@ -22,18 +22,24 @@ const UploadProduct = ({onClose}) => {
         const file = e.target.files[0];
         setInputImage(file.name);
         const uploadImageCloudinary = await uploadImage(file)
-        console.log(uploadImageCloudinary.url);
+        // console.log(uploadImageCloudinary.url);
+        setData((prev)=>{
+            return{
+                ...prev,
+                productImage : [...prev.productImage,uploadImageCloudinary.url]
+            }
+        })
     }
   return (
     <div className="h-full w-full fixed top-0 bottom-0 left-0 z-10 flex justify-center items-center bg-white bg-opacity-30">
-        <div className="w-full mx-auto bg-[#262626] shadow-xl max-w-lg p-4 max-h-[80%] overflow-hidden">
+        <div className="w-full mx-auto bg-[#262626] shadow-xl max-w-lg p-4 max-h-[80%] overflow-scroll">
             <div className="flex justify-center items-center">
                 <h2 className="font-bold text-lg">Upload a new product</h2>
                 <button className="block ml-auto" onClick={onClose}>
                     <IoClose />
                 </button>
             </div>
-            <form className="grid p-4 gap-3 overflow-y-scroll h-full">
+            <form className="grid p-4 gap-3 h-full">
                 <label htmlFor="productName mt-2">Product Name :</label>
                 <input className="p-2 bg-slate-600 border rounded" type="text" id="productName" placeholder="enter product name" value={data.productName} onChange={handleChange} />
                 <label htmlFor="brandName mt-2">Brand Name :</label>
@@ -58,9 +64,13 @@ const UploadProduct = ({onClose}) => {
                         </div>
                     </div>
                 </label>
-                <div>
-                    <img src="" width={100} height={100} className="bg-slate-600" alt="" />
+                <div className="flex flex-row gap-2">
+                    {data.productImage[0] ? (data.productImage.map(el=>{
+                        return (<img src={el} width={100} height={100} className="bg-slate-600" alt="" />)
+                    })) : (<p className="text-red-600 text-xs">Upload Image</p>)
+                }
                 </div>
+                <button className="px-3 py-2 bg-green-600 mb-10 hover:bg-green-700">Upload Product</button>
             </form>
         </div>
     </div>
