@@ -1,7 +1,7 @@
 import { FaRegCircleUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import "../index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
@@ -11,6 +11,10 @@ import ChangeRole from "../components/ChangeRole";
 
 const AllUsers = () => {
     const user = useSelector((state) => state?.user?.user);
+    const navigate = useNavigate();
+    useEffect(()=>{
+    if(user?.role !== "ADMIN") navigate("/");
+  },[user])
     const [allUser, setAllUser] = useState([]);
     const [open, setOpen] = useState(false);
     const [updateUserDetails, setUpdateUserDetails] = useState({
@@ -60,7 +64,7 @@ const AllUsers = () => {
             <div>
                 <table className="w-full userTable">
                     <thead>
-                        <tr>
+                        <tr className="bg-black">
                         <th>Sr.</th>
                         <th>Name</th>
                         <th>Email</th>

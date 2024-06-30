@@ -1,10 +1,15 @@
 import { FaRegCircleUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import "../index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const AdminPanel = () => {
   const user = useSelector((state) => state?.user?.user);
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if(user?.role !== "ADMIN") navigate("/");
+  },[user]) 
   return (
     <div className="min-h-[calc(100vh-120px)] md:flex hidden">
       <aside className=" z-10 min-h-full w-full bg-slate-700 max-w-60 custom-shadow">

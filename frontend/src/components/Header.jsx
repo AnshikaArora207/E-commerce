@@ -47,7 +47,9 @@ const Header = () => {
         <div className="flex flex-row gap-8">
           <div className="flex flex-row gap-4 cursor-pointer items-center relative">
             <div className="relative flex justify-center">
-              <div
+              {
+                user?._id && (
+                  <div
                 onClick={() => {
                   setMenuDisplay(!menuDisplay);
                 }}
@@ -61,10 +63,11 @@ const Header = () => {
                   <FaRegCircleUser size={26} />
                 )}
               </div>
+                )
+              }
               {menuDisplay && (
                 <div className="absolute bottom-0 top-12 shadow-lg h-fit p-4 bg-[#262626] rounded">
-                  <nav>
-                    <Link
+                  <nav>{user?.role === "ADMIN" && (<Link
                       onClick={() => {
                         setMenuDisplay(!menuDisplay);
                       }}
@@ -72,7 +75,7 @@ const Header = () => {
                       className=" whitespace-nowrap hover:bg-slate-700 p-2 hidden md:block"
                     >
                       Admin Panel
-                    </Link>
+                    </Link>)}
                   </nav>
                 </div>
               )}
