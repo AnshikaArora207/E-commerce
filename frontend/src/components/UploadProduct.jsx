@@ -4,6 +4,8 @@ import productCategory from "../utils/productCategory.js";
 import { IoMdCloudUpload } from "react-icons/io";
 import uploadImage from "../utils/uploadImage.js";
 import { MdDelete } from "react-icons/md";
+import summaryApi from "../common/index.js";
+import { toast } from "react-toastify";
 
 const UploadProduct = ({onClose}) => {
     const [data,setData] = useState({
@@ -16,20 +18,26 @@ const UploadProduct = ({onClose}) => {
         sellingPrice: ""
     });
     const [inputImage, setInputImage] = useState("");
-    const handleChange = (e)=>{
-        const {name,value} = e.target;
-        setData((prev)=>{
-            return{
-                ...prev,
-                [name] : value
-            }
-        })
+    // const handleChange = (e)=>{
+    //     const {name,value} = e.target;
+    //     setData((prev)=>{
+    //         return{
+    //             ...prev,
+    //             [name] : value
+    //         }
+    //     })
+    // }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
     }
     const handleUploadImage = async(e)=>{
         const file = e.target.files[0];
         setInputImage(file.name);
         const uploadImageCloudinary = await uploadImage(file)
-        // console.log(uploadImageCloudinary.url);
         setData((prev)=>{
             return{
                 ...prev,
@@ -47,6 +55,22 @@ const UploadProduct = ({onClose}) => {
             }
         })
     }
+    const handleUpload = async(e)=>{
+        e.preventDefault();
+        // console.log(data);
+        const response = await fetch(summaryApi.uploadProduct.url,{
+            method : summaryApi.uploadProduct.method,
+            credentials : 'include',
+            headers :{
+                "content-type" : "application/json"
+            },
+            body : JSON.stringify(data)
+        })
+        const responseData = await response.json();
+        // console.log(responseData);
+        if(responseData.success) toast.success(responseData?.message);
+        if(responseData.error) toast.error(responseData?.message);
+    }
   return (
     <div className="h-full w-full fixed top-0 bottom-0 left-0 z-10 flex justify-center items-center bg-white bg-opacity-30">
         <div className="w-full mx-auto bg-[#262626] shadow-xl max-w-lg p-4 max-h-[80%] overflow-scroll">
@@ -56,13 +80,13 @@ const UploadProduct = ({onClose}) => {
                     <IoClose />
                 </button>
             </div>
-            <form className="grid p-4 gap-3 h-full">
+            <form className="grid p-4 gap-3 h-full" onSubmit={handleUpload}>
                 <label htmlFor="productName">Product Name :</label>
-                <input className="p-2 bg-slate-600 border rounded" type="text" id="productName" placeholder="enter product name" value={data.productName} onChange={handleChange} />
+                <input className="p-2 bg-slate-600 border rounded" onChange={handleChange} required name="productName"  type="text" id="productName" placeholder="enter product name" value={data.productName}/>
                 <label htmlFor="brandName">Brand Name :</label>
-                <input className="p-2 bg-slate-600 border rounded" type="text" id="brandName" placeholder="enter brand name" value={data.brandName} onChange={handleChange} />
+                <input className="p-2 bg-slate-600 border rounded" onChange={handleChange} required name="brandName"  type="text" id="brandName" placeholder="enter brand name" value={data.brandName}/>
                 <label htmlFor="category">Category :</label>
-                <select value={data.category} onChange={handleChange} className="p-2 bg-slate-600 border rounded" name="category" id="">
+                <select value={data.category} onChange={handleChange} required className="p-2 bg-slate-600 border rounded" name="category" id="">
                     <option value="">Select Category</option>
                     {
                         productCategory.map((el,index)=>{
@@ -78,7 +102,7 @@ const UploadProduct = ({onClose}) => {
                         <div className="text-slate-400 flex flex-col justify-center items-center">
                             <IoCloudUpload size={40}/>
                             <p>Upload Product Image</p>
-                            <input type="file" id="uploadImage" className="hidden cursor-pointer" onChange={handleUploadImage} />
+                            <input type="file" id="uploadImage" required name="productImage" className="hidden cursor-pointer" onChange={handleUploadImage} />
                         </div>
                     </div>
                 </label>
@@ -89,12 +113,12 @@ const UploadProduct = ({onClose}) => {
                 }
                 </div>
                 <label htmlFor="price">Price :</label>
-                <input className="p-2 bg-slate-600 border rounded" type="number" id="price" placeholder="enter price" value={data.price} onChange={handleChange} />
+                <input className="p-2 bg-slate-600 border rounded" required name="price" onChange={handleChange}  type="number" id="price" placeholder="enter price" value={data.price}/>
                 <label htmlFor="price">Selling Price :</label>
-                <input className="p-2 bg-slate-600 border rounded" type="numer" id="sellingPrice" placeholder="enter selling price" value={data.sellingPrice} onChange={handleChange} />
+                <input className="p-2 bg-slate-600 border rounded" required name="sellingPrice" onChange={handleChange}  type="number" id="sellingPrice" placeholder="enter selling price" value={data.sellingPrice}/>
                 <label htmlFor="description">Description :</label>
-                <textarea name="description" className="h-28 bg-slate-600 border resize-none p-1" placeholder="enter product description" rows={3} id="" value={data.description}></textarea>
-                <button className="px-3 py-2 bg-green-600 mb-10 hover:bg-green-700">Upload Product</button>
+                <textarea name="description" onChange={handleChange} required className="h-28 bg-slate-600 border resize-none p-1" placeholder="enter product description" rows={3} id="" value={data.description}></textarea>
+                <button type="submit" className="px-3 py-2 bg-green-600 mb-10 hover:bg-green-700">Upload Product</button>
             </form>
         </div>
     </div>

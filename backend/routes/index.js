@@ -6,6 +6,7 @@ import authToken from "../middleware/authToken.js";
 import userLogout from "../controller/userLogout.js";
 import allUsers from "../controller/allUsers.js";
 import updateUser from "../controller/updateUser.js";
+import uploadProduct from "../controller/uploadProduct.js";
 
 
 const router = express.Router()
@@ -16,5 +17,7 @@ router.delete("/logout",userLogout);
 
 router.get("/admin/all-users",authToken,allUsers);
 router.post("/admin/update-user",authToken,updateUser);
+
+router.post("/admin/upload-product",authToken,uploadProduct);
 
 export default router;
