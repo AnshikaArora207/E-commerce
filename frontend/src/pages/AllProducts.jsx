@@ -4,10 +4,23 @@ import "../index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UploadProduct from "../components/UploadProduct";
+import summaryApi from "../common";
 const AllProducts = () => {
     const user = useSelector((state) => state?.user?.user);
     const [open, setOpen] = useState(false);
+    const [products, setProducts] = useState([]);
+    const fetchProducts = async()=>{
+      const response = await fetch(summaryApi.getProduct.url,{
+        method : summaryApi.getProduct.method,
+        credentials :'include'
+      })
+      const responseData = await response.json();
+      setProducts(responseData?.data || []);
+    }
     const navigate = useNavigate();
+    useEffect(()=>{
+      fetchProducts();
+    },[]);
     useEffect(()=>{
     if(user?.role !== "ADMIN") navigate("/");
   },[user])
@@ -37,6 +50,18 @@ const AllProducts = () => {
             <div className="py-2 px-4 flex justify-between items-center">
               <h2 className="font-bold text-lg">All Products</h2>
               <button onClick={()=>setOpen(true)} className="border border-green-600 text-green-600 py-2 px-4 rounded-full hover:text-white transition-all hover:bg-green-700">Upload Product</button>
+            </div>
+            <div className="flex items-center gap-5 py-4">
+              {
+                products.map((el,index)=>{
+                  return (
+                    <div key={index} className="p-4 rounded bg-[#303030]">
+                      <img className="w-[120px] h-[120px]" src={el?.productImage[0]} alt="" />
+                      <h1>{el?.productName}</h1>
+                    </div>
+                  )
+                })
+              }
             </div>
             {open && <UploadProduct onClose={()=>setOpen(false)}/>}
           </div>
