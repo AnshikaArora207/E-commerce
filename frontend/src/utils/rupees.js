@@ -1,0 +1,9 @@
+const rupees = (n)=>{
+    const formatter = new Intl.NumberFormat('en-IN',{
+        style : "currency",
+        currency : "INR",
+        minimumFractionDigits : 2
+    })
+    return formatter.format(n);
+}
+export default rupees;
