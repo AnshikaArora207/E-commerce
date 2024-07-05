@@ -1,7 +1,10 @@
+import CategoryList from "../components/CategoryList"
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <CategoryList/>
+    </div>
   )
 }
 

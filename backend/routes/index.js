@@ -8,6 +8,7 @@ import allUsers from "../controller/allUsers.js";
 import updateUser from "../controller/updateUser.js";
 import uploadProduct from "../controller/uploadProduct.js";
 import getProduct from "../controller/getProduct.js";
+import getCategory from "../controller/getCategory.js";
 
 
 const router = express.Router()
@@ -21,5 +22,6 @@ router.post("/admin/update-user",authToken,updateUser);
 
 router.post("/admin/upload-product",authToken,uploadProduct);
 router.get("/admin/get-product",authToken,getProduct);
+router.get("/get-category",getCategory);
 
 export default router;

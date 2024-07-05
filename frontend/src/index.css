@@ -27,4 +27,7 @@ input:focus {
 .userTable td{
   @apply border text-base text-center py-3 items-center
 }
+.scrollbar-none::-webkit-scrollbar{
+  display: none;
+}
 

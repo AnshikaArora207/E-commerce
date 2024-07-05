@@ -67,7 +67,7 @@ const AllProducts = () => {
               Upload Product
             </button>
           </div>
-          <div className="flex items-center gap-5 py-4">
+          <div className="flex flex-wrap items-center gap-5 py-4">
             {products.map((el, index) => {
               return <AdminProductCard data={el} key={index} />;
             })}
