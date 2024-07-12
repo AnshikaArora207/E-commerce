@@ -45,7 +45,7 @@ const BannerProduct = () => {
     return () => clearInterval(interval);
   }, [desktop.length]);
   return (
-    <div className="container mx-auto px-8 py-4 rounded">
+    <div className="container mx-auto px-4 py-4 rounded">
       <div className="h-56 md:h-72 w-full bg-[#303030] relative">
         <div className="absolute z-10 h-full w-full flex items-center">
           <div className="justify-between w-full text-2xl hidden md:flex">
