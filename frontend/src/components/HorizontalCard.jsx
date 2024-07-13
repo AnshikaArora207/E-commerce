@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import fetchCategoryWiseProduct from "../utils/fetchCategoryWiseProduct";
 import rupees from "../utils/rupees";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import addToCart from "../utils/addToCart";
 
 const HorizontalCard = ({ category, heading }) => {
   const [data, setData] = useState([]);
@@ -76,7 +78,7 @@ const HorizontalCard = ({ category, heading }) => {
           :
            data.map((product, index) => {
               return (
-                <div
+                <Link to={`/product/${product?._id}`}
                   key={index}
                   className=" flex flex-row w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-[#303030] rounded-sm shadow-md"
                 >
@@ -100,11 +102,11 @@ const HorizontalCard = ({ category, heading }) => {
                         {rupees(product.price)}
                       </p>
                     </div>
-                    <button className="bg-green-700 px-4 py-1 rounded-full hover:bg-green-800 mt-2 text-sm">
+                    <button onClick={(e)=>addToCart(e,product?._id)} className="bg-green-700 px-4 py-1 rounded-full hover:bg-green-800 mt-2 text-sm">
                       Add to Cart
                     </button>
                   </div>
-                </div>
+                </Link>
               );
             })}
       </div>

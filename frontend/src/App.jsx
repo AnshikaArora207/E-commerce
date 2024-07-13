@@ -16,6 +16,7 @@ import AdminPanel from "./pages/AdminPanel";
 import AllUsers from "./pages/AllUsers";
 import AllProducts from "./pages/AllProducts";
 import Category from "./pages/Category";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/signup" element={<Signup/>}/>
+                <Route path="/product/:id" element={<ProductDetails/>}/>
                 <Route path="/product-category/:categoryName" element={<Category/>}/>
                 <Route path="/admin" element={<AdminPanel/>}/>
                 <Route path="/admin/all-users" element={<AllUsers/>}/>
