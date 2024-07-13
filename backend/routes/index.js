@@ -10,6 +10,7 @@ import uploadProduct from "../controller/uploadProduct.js";
 import getProduct from "../controller/getProduct.js";
 import getCategory from "../controller/getCategory.js";
 import getCategoryWiseProducts from "../controller/getCatrgoryWiseProducts.js";
+import getProductDetails from "../controller/getProductDetails.js";
 
 
 const router = express.Router()
@@ -25,5 +26,6 @@ router.post("/admin/upload-product",authToken,uploadProduct);
 router.get("/admin/get-product",authToken,getProduct);
 router.get("/get-category",getCategory);
 router.post("/category-product",getCategoryWiseProducts);
+router.post("/product-details",getProductDetails);
 
 export default router;
