@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import summaryApi from "../common";
 import { FaStar } from "react-icons/fa";
 import rupees from "../utils/rupees";
+import HorizontalCard from "../components/HorizontalCard";
 
 const ProductDetails = () => {
     const [data,setData] = useState({
@@ -46,7 +47,7 @@ const ProductDetails = () => {
         <div className="min-h-[200px] flex flex-col lg:flex-row">
             <div className="h-96 flex flex-col lg:flex-row gap-4 ml-4">
                 <div className="flex flex-row-reverse gap-4">
-                <div className="h-[300px] w-[300px] lg:h-96 lg:w-96 bg-[#303030]">
+                <div className="h-[300px] w-[300px] lg:h-96 lg:w-96 bg-[#303030] p-2">
                     <img src={activeImage} className="w-full h-full object-scale-down" alt="" />
                 </div>
                 <div className="h-full">
@@ -118,6 +119,9 @@ const ProductDetails = () => {
                 }
             </div>
         </div>
+        {
+            data.category && <HorizontalCard category = {`${data.category}`} heading={"Recommended Products"}/>
+        }
     </div>
   )
 }
