@@ -43,6 +43,10 @@ const summaryApi = {
     productDetails : {
         url:`${backendDomain}/api/product-details`,
         method: "post"
+    },
+    addToCart : {
+        url:`${backendDomain}/api/addToCart`,
+        method: "post"
     }
 }
 
