@@ -18,5 +18,6 @@ const addToCart = async(e,id)=>{
     const dataResponse = await response.json();
     if(dataResponse.success) toast.success(dataResponse.message);
     if(dataResponse.error) toast.error(dataResponse.message);
+    return dataResponse;
 }
 export default addToCart;

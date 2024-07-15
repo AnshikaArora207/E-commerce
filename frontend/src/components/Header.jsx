@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Context from "../context";
 
 const Header = () => {
   const user = useSelector((state) => state?.user?.user);
   const [menuDisplay, setMenuDisplay] = useState(false);
+  const context = useContext(Context)
   const dispatch = useDispatch();
   // console.log("user", user);
   const handleLogout = async () => {
@@ -26,6 +28,7 @@ const Header = () => {
     }
     if (data.error) toast.error(data.message);
   };
+  // console.log(context);
   return (
     <header className="shadow-md">
       <div className="container mx-auto flex items-center py-2 px-4 justify-between">
@@ -80,14 +83,16 @@ const Header = () => {
                 </div>
               )}
             </div>
+            {
+                user?._id &&
             <div className="flex flex-col items-center">
               <span>
                 <MdOutlineShoppingCart size={26} />
-              </span>
-              <div className="absolute bg-red-600 w-4 h-4 rounded-full flex items-center justify-center text-center -right-2 -top-2">
-                <p>0</p>
+              </span> <div className="absolute bg-red-600 w-4 h-4 rounded-full flex items-center justify-center text-center -right-2 -top-2">
+                <p>{context.cartProduct}</p>
               </div>
             </div>
+              }
           </div>
           <div>
             {user?._id ? (
