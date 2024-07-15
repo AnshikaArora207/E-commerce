@@ -85,13 +85,13 @@ const Header = () => {
             </div>
             {
                 user?._id &&
-            <div className="flex flex-col items-center">
+            <Link to={"/my-cart"} className="flex flex-col items-center">
               <span>
                 <MdOutlineShoppingCart size={26} />
               </span> <div className="absolute bg-red-600 w-4 h-4 rounded-full flex items-center justify-center text-center -right-2 -top-2">
                 <p>{context.cartProduct}</p>
               </div>
-            </div>
+            </Link>
               }
           </div>
           <div>
