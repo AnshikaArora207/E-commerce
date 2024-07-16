@@ -11,7 +11,7 @@ async function updateUser(req,res)
             ...(role && {role : role}) 
          }
          const user =  await userModel.findById(sessionUser);
-         console.log(user.role);
+        //  console.log(user.role);
          const updatedUser = await userModel.findByIdAndUpdate(userId,payload);
          res.json({
             data : updatedUser,

@@ -56,7 +56,7 @@ const HorizontalCard = ({ category, heading }) => {
           </button>
         </div>
         {
-        loading
+        loading 
           ? loadingList.map((_,index) => {
               return (
                 <div

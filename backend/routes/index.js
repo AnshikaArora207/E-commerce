@@ -14,6 +14,7 @@ import getProductDetails from "../controller/getProductDetails.js";
 import addToCart from "../controller/addToCart.js";
 import countCart from "../controller/countCart.js";
 import viewCart from "../controller/viewCart.js";
+import updateCart from "../controller/updateCart.js";
 
 
 const router = express.Router()
@@ -34,5 +35,6 @@ router.post("/product-details",getProductDetails);
 router.post("/addToCart",authToken,addToCart)
 router.get("/countCart",authToken,countCart)
 router.get("/viewCart",authToken,viewCart);
+router.post("/updateCart",authToken,updateCart);
 
 export default router;

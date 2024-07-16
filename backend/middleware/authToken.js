@@ -12,7 +12,7 @@ async function authToken(req,res,next){
             req.userId = decoded?._id;
             next();
         })
-        console.log("token   -    ",token);
+        // console.log("token   -    ",token);
     }
     catch(err){
         res.status(400).json({

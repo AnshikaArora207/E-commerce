@@ -55,6 +55,10 @@ const summaryApi = {
     viewCart : {
         url:`${backendDomain}/api/viewCart`,
         method: "get"
+    },
+    updateCart : {
+        url:`${backendDomain}/api/updateCart`,
+        method: "post"
     }
 }
 

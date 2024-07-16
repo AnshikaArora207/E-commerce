@@ -30,4 +30,7 @@ input:focus {
 .scrollbar-none::-webkit-scrollbar{
   display: none;
 }
+.container {
+  padding: 4px 24px;
+}
 

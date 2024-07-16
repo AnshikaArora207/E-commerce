@@ -2,7 +2,7 @@ import userModel from "../models/user.js";
 
 async function allUsers(req,res){
     try{
-        console.log(req.userId);
+        // console.log(req.userId);
         const allUsers = await userModel.find()
         res.json({
             message : "All Users",

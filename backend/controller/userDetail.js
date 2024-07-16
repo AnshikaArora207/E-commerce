@@ -2,7 +2,7 @@ import userModel from "../models/user.js";
 
 async function userDetail(req,res){
     try{
-        console.log(req.userId);
+        // console.log(req.userId);
         const user = await userModel.findById(req.userId)
         res.status(200).json({
             data : user,

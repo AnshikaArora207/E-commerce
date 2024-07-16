@@ -9,7 +9,7 @@ import Context from "../context";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { fetchUserDetail,cartProduct } = useContext(Context);
+  const { fetchUserDetail,cart } = useContext(Context);
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     email: "",
@@ -38,7 +38,7 @@ const Login = () => {
       toast.success(resolvedResponse.message);
       navigate("/");
       fetchUserDetail();
-      cartProduct();
+      cart();
     }
     if (resolvedResponse.error) toast.error(resolvedResponse.message);
   };
