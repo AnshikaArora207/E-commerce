@@ -15,6 +15,7 @@ import addToCart from "../controller/addToCart.js";
 import countCart from "../controller/countCart.js";
 import viewCart from "../controller/viewCart.js";
 import updateCart from "../controller/updateCart.js";
+import deleteProduct from "../controller/deleteProduct.js";
 
 
 const router = express.Router()
@@ -36,5 +37,6 @@ router.post("/addToCart",authToken,addToCart)
 router.get("/countCart",authToken,countCart)
 router.get("/viewCart",authToken,viewCart);
 router.post("/updateCart",authToken,updateCart);
+router.post("/deleteProduct",authToken,deleteProduct);
 
 export default router;

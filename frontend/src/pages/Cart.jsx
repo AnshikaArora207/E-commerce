@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import summaryApi from "../common";
 import Context from "../context";
 import rupees from "../utils/rupees";
+import { MdDelete } from "react-icons/md";
 
 const Cart = () => {
     const [products,setProducts] = useState([]);
@@ -37,6 +38,7 @@ const Cart = () => {
                 "content-type" : "application/json"
             },
             body : JSON.stringify({
+                _id : id,
                 quantity : qty+1
             })
         })
@@ -54,6 +56,7 @@ const Cart = () => {
                 "content-type" : "application/json"
             },
             body : JSON.stringify({
+                _id : id,
                 quantity : qty-1
             })
         })
@@ -61,6 +64,23 @@ const Cart = () => {
         // if(responseData.success) 
             fetchData();
     }
+    }
+    const deleteProduct= async(id)=>{
+        const response = await fetch(summaryApi.deleteProduct.url,{
+            method : summaryApi.deleteProduct.method,
+            credentials : 'include',
+            headers : {
+                "content-type" : "application/json"
+            },
+            body : JSON.stringify({
+                _id : id,
+            })
+        })
+        const responseData = await response.json();
+        // console.log(responseData.success);
+        // if(responseData.success) 
+            fetchData();
+        context.cart();
     }
   return (
     <div className="container mx-auto">
@@ -82,7 +102,10 @@ const Cart = () => {
                                 <div className="w-28 h-28">
                                     <img src={el?.productId.productImage[0]} alt="" className="w-full h-full object-scale-down" />
                                 </div>
-                                <div className="px-4 py-2">
+                                <div className="px-4 py-2 relative">
+                                    <div className="absolute right-0 text-red-500 rounded-full p-2 hover:text-white hover:bg-red-500 cursor-pointer" onClick={()=>{deleteProduct(el?._id)}}>
+                                        <MdDelete/>
+                                    </div>
                                     <h2 className="text-lg lg:text-xl text-ellipsis line-clamp-1">{el?.productId.productName}</h2>
                                     <p className=" capitalize text-slate-500">{el?.productId.category}</p>
                                     <p className="text-red-500">{rupees(el?.productId.sellingPrice)}</p>
