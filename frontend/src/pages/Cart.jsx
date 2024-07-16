@@ -82,6 +82,8 @@ const Cart = () => {
             fetchData();
         context.cart();
     }
+    const total = products.reduce((previousValue,currentValue)=>previousValue+currentValue.quantity,0)
+    const totalPrice = products.reduce((prev,curr)=>prev+(curr.quantity* curr.productId.sellingPrice),0)
   return (
     <div className="container mx-auto">
         <div className="text-center text-lg py-2 m-3 h-full">
@@ -108,7 +110,10 @@ const Cart = () => {
                                     </div>
                                     <h2 className="text-lg lg:text-xl text-ellipsis line-clamp-1">{el?.productId.productName}</h2>
                                     <p className=" capitalize text-slate-500">{el?.productId.category}</p>
-                                    <p className="text-red-500">{rupees(el?.productId.sellingPrice)}</p>
+                                    <div className="flex flex-row items-center justify-between">
+                                        <p className="text-red-500">{rupees(el?.productId.sellingPrice)}</p>
+                                        <p className="text-slate-500 font-semibold">{rupees(el?.productId.sellingPrice * el?.quantity)}</p>
+                                    </div>
                                     <div className="flex flex-row gap-2 my-2">
                                         <button onClick={()=>{decrease(el?._id,el?.quantity)}} className="border border-green-600 hover:bg-green-600 hover:text-white text-green-600 w-6 h-6 flex justify-center items-center">-</button>
                                         <span>{el?.quantity}</span>
@@ -122,7 +127,20 @@ const Cart = () => {
             </div>
             <div className="mt-5 w-full lg:mt-0 max-w-md">
             {
-                !loading && <div className="h-36 bg-[#343434]">Total</div>
+                !loading && <div className="bg-[#343434] h-44">
+                    <h2 className="px-4 py-1 bg-green-700">Summary</h2>
+                    <div className=" flex items-center justify-between px-4 py-2 font-medium text-lg">
+                        <p>Quantity</p>
+                        <p>{total}</p>
+                    </div>
+                    <div className=" flex items-center justify-between px-4 py-2 font-medium text-lg">
+                        <p>Total price</p>
+                        <p>{rupees(totalPrice)}</p>
+                    </div>
+                    <div className="flex items-center justify-center w-full">
+                        <button className="bg-green-700 px-4 py-1 min-w-[150px] rounded-full hover:bg-green-800">Payment</button>
+                    </div>
+                </div>
             }
             </div>
         </div>
