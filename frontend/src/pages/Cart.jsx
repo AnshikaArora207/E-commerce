@@ -125,7 +125,7 @@ const Cart = () => {
                     )
                 }
             </div>
-            <div className="mt-5 w-full lg:mt-0 max-w-md">
+            <div className="mt-5 pt-2 w-full lg:mt-0 max-w-md">
             {
                 !loading && <div className="bg-[#343434] h-44">
                     <h2 className="px-4 py-1 bg-green-700">Summary</h2>
