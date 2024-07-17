@@ -18,6 +18,7 @@ import AllProducts from "./pages/AllProducts";
 import Category from "./pages/Category";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import Search from "./pages/Search";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function App() {
                 <Route path="/admin/all-users" element={<AllUsers/>}/>
                 <Route path="/admin/all-products" element={<AllProducts/>}/>
                 <Route path="/my-cart" element={<Cart/>}/>
+                <Route path="/search" element={<Search/>}/>
             </Routes>
     <Footer/>
     </Context.Provider>
