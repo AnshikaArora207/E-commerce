@@ -2,7 +2,7 @@ import logo from "../assets/logo.png";
 import { GrSearch } from "react-icons/gr";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
@@ -16,6 +16,9 @@ const Header = () => {
   const context = useContext(Context);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let searchInput = useLocation()
+  searchInput = searchInput.search.split("=")[1];
+  const [search,setSearch] = useState(searchInput);
   // console.log("user", user);
   const handleLogout = async () => {
     const fetchData = await fetch(summaryApi.logout.url, {
@@ -32,6 +35,7 @@ const Header = () => {
   // console.log(context);
   const handleSearch = (e)=>{
     const {value} = e.target
+    setSearch(value)
     if(value) navigate(`/search?q=${value}`)
   }
   return (
@@ -48,6 +52,7 @@ const Header = () => {
             type="text"
             placeholder="Search product here..."
             onChange={handleSearch}
+            value={search}
           />
           <div className="flex justify-center items-center px-2 bg-green-700 rounded-r-2xl">
             <GrSearch size={22} />

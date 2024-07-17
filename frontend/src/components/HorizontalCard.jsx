@@ -87,9 +87,9 @@ const HorizontalCard = ({ category, heading }) => {
               return (
                 <Link to={`/product/${product?._id}`}
                   key={index}
-                  className=" flex flex-row w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-[#303030] rounded-sm shadow-md"
+                  className=" flex flex-row w-full min-w-[280px] md:min-w-[280px] max-w-[280px] md:max-w-[280px] h-36 bg-[#303030] rounded-sm shadow-md"
                 >
-                  <div className="h-full p-4 min-w-[120px] md:min-w-[145px]">
+                  <div className="h-full p-4 min-w-[120px] md:min-w-[145px] w-full">
                     <img
                       src={product.productImage[0]}
                       className=" object-scale-down h-full hover:scale-110 transition-all"
@@ -109,7 +109,7 @@ const HorizontalCard = ({ category, heading }) => {
                         {rupees(product.price)}
                       </p>
                     </div>
-                    <button onClick={(e)=>{handleAdd(e,product?._id)}} className="bg-green-700 px-4 py-1 rounded-full hover:bg-green-800 mt-2 text-sm">
+                    <button onClick={(e)=>{handleAdd(e,product?._id)}} className="bg-green-700 px-4 py-2 rounded-full hover:bg-green-800 mt-4 text-sm">
                       Add to Cart
                     </button>
                   </div>
