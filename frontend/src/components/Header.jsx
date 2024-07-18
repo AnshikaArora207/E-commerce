@@ -16,9 +16,11 @@ const Header = () => {
   const context = useContext(Context);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let searchInput = useLocation()
+  let searchInput = useLocation();
+  const URLsearch = new URLSearchParams(searchInput.search);
+  const searchQuery = URLsearch.getAll("q");
   searchInput = searchInput.search.split("=")[1];
-  const [search,setSearch] = useState(searchInput);
+  const [search,setSearch] = useState(searchQuery);
   // console.log("user", user);
   const handleLogout = async () => {
     const fetchData = await fetch(summaryApi.logout.url, {
