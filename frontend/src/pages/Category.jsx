@@ -3,6 +3,7 @@ import productCategory from "../utils/productCategory"
 import fetchCategoryWiseProduct from "../utils/fetchCategoryWiseProduct";
 import { useEffect, useState } from "react";
 import rupees from "../utils/rupees";
+import summaryApi from "../common";
 
 const Category = () => {
   const params = useParams();
@@ -10,9 +11,20 @@ const Category = () => {
   const [data,setData] = useState([]);
   const [loading,setLoading] = useState(false);
   const [selectCategory, setSelectCategory] = useState({});
+  const [filterList,setFilterList] = useState([]);
   const fetchData = async()=>{
     setLoading(true);
-    const response = await fetch();
+    const response = await fetch(summaryApi.filter.url,
+      {
+        method : summaryApi.filter.method,
+        headers : {
+          "content-type" : "application/json",
+        },
+        body : JSON.stringify({
+          category : filterList
+        })
+      }
+    );
     const responseData = await response.json();
     setData(responseData.data || []);  
     setLoading(false);
@@ -35,13 +47,16 @@ const Category = () => {
     // console.log(name,value);
   }
   useEffect(() => {
-    initial();
     const categoryArray = Object.keys(selectCategory).map(name=>{
       if(selectCategory[name]) return name
       return null
-    })
-    console.log(categoryArray);
+    }).filter(el=>el)
+    setFilterList(categoryArray)
+    // console.log(categoryArray);
   }, [selectCategory]);
+  useEffect(()=>{
+    fetchData();
+  },[filterList])
   return (
     <div className="conatiner mx-auto p-4">
       <div className="hidden lg:grid grid-cols-[200px,1px]">
