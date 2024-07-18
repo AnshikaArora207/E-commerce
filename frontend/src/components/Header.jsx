@@ -33,6 +33,7 @@ const Header = () => {
       dispatch(setUserDetails(null));
     }
     if (data.error) toast.error(data.message);
+    navigate("/home");
   };
   // console.log(context);
   const handleSearch = (e)=>{
