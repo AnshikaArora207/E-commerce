@@ -1,12 +1,10 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import productCategory from "../utils/productCategory"
-import fetchCategoryWiseProduct from "../utils/fetchCategoryWiseProduct";
 import { useEffect, useState } from "react";
 import rupees from "../utils/rupees";
 import summaryApi from "../common";
 
 const Category = () => {
-  const params = useParams();
   const navigate = useNavigate();
   // console.log(params);
   const [data,setData] = useState([]);
@@ -97,6 +95,10 @@ const Category = () => {
             </form>
           </div>
         </div>
+        <div className="w-full flex flex-col">
+          <div className="flex w-[250px] ml-6">
+          <p className="">Search Results : {data.length}</p>
+          </div>
         {!loading && <div className="grid grid-cols-[400px,400px,400px] justify-evenly sm:justify-around mt-4 ml-8">
         {data.map((product,index)=>{
             return (<Link to={`/product/${product?._id}`}
@@ -120,6 +122,7 @@ const Category = () => {
             </Link>)
           })}
         </div>}
+          </div>
       </div>
     </div>
   )
