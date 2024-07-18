@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import productCategory from "../utils/productCategory"
 import fetchCategoryWiseProduct from "../utils/fetchCategoryWiseProduct";
 import { useEffect, useState } from "react";
@@ -7,10 +7,18 @@ import summaryApi from "../common";
 
 const Category = () => {
   const params = useParams();
+  const navigate = useNavigate();
   // console.log(params);
   const [data,setData] = useState([]);
   const [loading,setLoading] = useState(false);
-  const [selectCategory, setSelectCategory] = useState({});
+  const location = useLocation();
+  const urlSearch = new URLSearchParams(location.search);
+  const urlCategoryList = urlSearch.getAll("category");
+  const urlObject = {};
+  urlCategoryList.forEach(el=>{
+    urlObject[el] = true
+  })
+  const [selectCategory, setSelectCategory] = useState(urlObject);
   const [filterList,setFilterList] = useState([]);
   const fetchData = async()=>{
     setLoading(true);
@@ -30,13 +38,6 @@ const Category = () => {
     setLoading(false);
     console.log(responseData);
   }
-  const initial = async () => {
-    setLoading(true);
-    const categoryProduct = await fetchCategoryWiseProduct(params.categoryName);
-    setLoading(false);
-    setData(categoryProduct.data);
-    // console.log(categoryProduct);
-  };
   const handleSelect = (e)=>{
     const {name,value,checked} = e.target
     setSelectCategory((prev)=>{
@@ -52,6 +53,13 @@ const Category = () => {
       return null
     }).filter(el=>el)
     setFilterList(categoryArray)
+    const urlFormat = categoryArray.map((el,index)=>{
+      if(categoryArray.length-1 === index){
+        return `category=${el}`
+      }
+      return `category=${el}&&`
+    })
+    navigate("/product-category?"+urlFormat.join(""))
     // console.log(categoryArray);
   }, [selectCategory]);
   useEffect(()=>{
